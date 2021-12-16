@@ -1,0 +1,23 @@
+html {
+  font-size: 100%;
+}
+
+body {
+  font-size: 1rem;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.quiz {
+  display: none;
+}
+
+.button {
+}
+
+.button__reset {
+  display: none;
+}

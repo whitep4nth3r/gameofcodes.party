@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>gameofcodes.party</title>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="description" content="gameofcodes.party" />
+
+    <link rel="stylesheet" href="./main.css" />
+
+    <link
+      href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAF0lEQVRIx2NgGAWjYBSMglEwCkbBSAcACBAAAeaR9cIAAAAASUVORK5CYII="
+      rel="icon"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
+    <header></header>
+    <main>
+      <section data-init>
+        <button type="button" data-start>Start</button>
+      </section>
+      <section class="quiz" data-quiz>
+        <h1>
+          What is
+          <span data-question></span>
+        </h1>
+        <p data-answer data-option="1"></p>
+        <p data-answer data-option="2"></p>
+        <p data-answer data-option="3"></p>
+        <p data-answer data-option="4"></p>
+      </section>
+
+      <button class="button button__reset" type="button" data-reset>Reset</button>
+    </main>
+    <footer></footer>
+    <script type="module" src="./game.js"></script>
+  </body>
+</html>
