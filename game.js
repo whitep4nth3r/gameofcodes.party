@@ -52,12 +52,21 @@ function uncheckAllAnswers() {
 
 function resetGame() {
   showStartButton();
+  hideResult();
   hideQuiz();
   hideResetButton();
   uncheckAllAnswers();
   resetGameState();
   updateScore();
   initTotalQuestions();
+}
+
+function hideResult() {
+  result.style.display = "none";
+}
+
+function showResult() {
+  result.style.display = "block";
 }
 
 function showQuiz() {
@@ -181,7 +190,7 @@ function generateQuestion() {
 
 function clearAnswerResults() {
   for (let el of answerEls) {
-    el.className = "answer";
+    el.className = "answers__option";
   }
 }
 
@@ -203,7 +212,12 @@ function showAnswerResults() {
   }
 }
 
+function resetScore() {
+  result.textContent = "";
+}
+
 function endGame() {
+  showResult();
   hideQuiz();
   result.textContent = `You scored ${GameState.current.score} out of ${GameState.questionCount}!`;
 }
@@ -224,7 +238,7 @@ function submitAnswer() {
     GameState.current.score += 1;
     updateScore();
   }
-  
+
   showAnswerResults();
   hideSubmitButton();
 
