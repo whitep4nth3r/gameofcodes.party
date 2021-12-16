@@ -20,13 +20,20 @@
     <header></header>
     <main class="main">
       <section data-init>
-        <button type="button" class="button" data-start>Start</button>
+        <button type="button" class="button" data-start>Begin quiz</button>
       </section>
+      <p data-result></p>
       <section class="quiz" data-quiz>
-        <span>
+        <p>
+          Question
+          <span data-current></span>
+          of
+          <span data-question-count></span>
+        </p>
+        <p>
           Score
           <span data-score></span>
-        </span>
+        </p>
         <h1>
           What is
           <span data-question></span>
@@ -56,7 +63,7 @@
         </form>
       </section>
 
-      <button class="button button__reset" type="button" data-reset>Reset</button>
+      <button class="button button__reset" type="button" data-reset>Start over</button>
     </main>
     <footer></footer>
     <script type="module" src="./game.js"></script>

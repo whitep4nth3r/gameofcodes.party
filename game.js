@@ -9,14 +9,18 @@ const nextButton = document.querySelector("[data-next]");
 const questionEl = document.querySelector("[data-question]");
 const scoreEl = document.querySelector("[data-score]");
 const answerEls = document.querySelectorAll("[data-answer]");
+const result = document.querySelector("[data-result]");
+const currentQuestionIndicatorEl = document.querySelector("[data-current]");
+const questionCountEl = document.querySelector("[data-question-count]");
 
 const GameState = {
   current: {
-    questionIndex: -1,
+    question: 1,
     wrongAnswers: [],
     correctAnswerRandString: "",
     score: 0,
   },
+  questionCount: 10,
 };
 
 function generateRandomString() {
@@ -51,10 +55,9 @@ function resetGame() {
   hideQuiz();
   hideResetButton();
   uncheckAllAnswers();
-  GameState.current.questionIndex = -1;
-  GameState.current.wrongAnswers = [];
-  GameState.current.score = 0;
+  resetGameState();
   updateScore();
+  initTotalQuestions();
 }
 
 function showQuiz() {
@@ -101,20 +104,37 @@ function updateScore() {
   scoreEl.innerText = GameState.current.score;
 }
 
+function resetGameState() {
+  GameState.current.question = 0;
+  GameState.current.wrongAnswers = [];
+  GameState.current.score = 0;
+}
+
 function startGame() {
   resetGame();
   hideStartButton();
   showResetButton();
-  GameState.current.questionIndex = 0;
+  resetGameState();
   generateQuestion();
   showQuiz();
 }
 
+function updateProgress() {
+  currentQuestionIndicatorEl.textContent = GameState.current.question;
+}
+
+function initTotalQuestions() {
+  questionCountEl.textContent = GameState.questionCount;
+}
+
 function generateQuestion() {
+  incrementCurrentQuestion();
+  updateProgress();
   clearAnswerResults();
   uncheckAllAnswers();
   hideNextButton();
   showSubmitButton();
+  updateProgress();
   // do a few things with game state
 
   // get random status code data
@@ -165,6 +185,10 @@ function clearAnswerResults() {
   }
 }
 
+function incrementCurrentQuestion() {
+  GameState.current.question += 1;
+}
+
 function showAnswerResults() {
   const correctAnswerEl = document.querySelector(
     `[data-answer="${GameState.current.correctAnswerRandString}"]`,
@@ -177,6 +201,11 @@ function showAnswerResults() {
       el.className = "answer__incorrect";
     }
   }
+}
+
+function endGame() {
+  hideQuiz();
+  result.textContent = `You scored ${GameState.current.score} out of ${GameState.questionCount}!`;
 }
 
 function submitAnswer() {
@@ -194,16 +223,16 @@ function submitAnswer() {
 
     GameState.current.score += 1;
     updateScore();
-  } else {
-    // wrong answer!
   }
-
+  
   showAnswerResults();
-
   hideSubmitButton();
-  showNextButton();
 
-  // TODO show next question button
+  if (GameState.current.question < GameState.questionCount) {
+    showNextButton();
+  } else {
+    endGame();
+  }
 }
 
 startButton.addEventListener("click", function () {
