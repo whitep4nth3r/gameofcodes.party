@@ -212,13 +212,8 @@ function showAnswerResults() {
   }
 }
 
-function resetScore() {
-  result.textContent = "";
-}
-
 function endGame() {
   showResult();
-  hideQuiz();
   result.textContent = `You scored ${GameState.current.score} out of ${GameState.questionCount}!`;
 }
 
