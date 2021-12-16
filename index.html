@@ -18,19 +18,41 @@
   </head>
   <body>
     <header></header>
-    <main>
+    <main class="main">
       <section data-init>
         <button type="button" data-start>Start</button>
       </section>
       <section class="quiz" data-quiz>
+        <span>
+          Score
+          <span data-score></span>
+        </span>
         <h1>
           What is
           <span data-question></span>
+          ?
         </h1>
-        <p data-answer data-option="1"></p>
-        <p data-answer data-option="2"></p>
-        <p data-answer data-option="3"></p>
-        <p data-answer data-option="4"></p>
+        <form>
+          <fieldset>
+            <div data-answer class="answer">
+              <input type="radio" name="answer" id="option1" />
+              <label for="option1"></label>
+            </div>
+            <div data-answer class="answer">
+              <input type="radio" name="answer" id="option2" />
+              <label for="option2"></label>
+            </div>
+            <div data-answer class="answer">
+              <input type="radio" name="answer" id="option3" />
+              <label for="option3"></label>
+            </div>
+            <div data-answer class="answer">
+              <input type="radio" name="answer" id="option4" />
+              <label for="option4"></label>
+            </div>
+          </fieldset>
+          <button type="button" data-submit>Submit</button>
+        </form>
       </section>
 
       <button class="button button__reset" type="button" data-reset>Reset</button>

@@ -8,7 +8,11 @@ body {
 
 * {
   box-sizing: border-box;
-  margin: 0;
+}
+
+.main {
+  margin: 4rem auto;
+  max-width: 600px;
 }
 
 .quiz {
@@ -20,4 +24,15 @@ body {
 
 .button__reset {
   display: none;
+}
+
+.answer {
+}
+
+.answer__correct {
+  color: green;
+}
+
+.answer__incorrect {
+  color: red;
 }
