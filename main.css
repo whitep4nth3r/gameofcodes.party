@@ -20,9 +20,15 @@ body {
 }
 
 .button {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .button__reset {
+  display: none;
+}
+
+.button__next {
   display: none;
 }
 

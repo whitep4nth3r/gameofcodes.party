@@ -5,6 +5,7 @@ const quizHolder = document.querySelector("[data-quiz]");
 const startButton = document.querySelector("[data-start]");
 const resetButton = document.querySelector("[data-reset]");
 const submitButton = document.querySelector("[data-submit]");
+const nextButton = document.querySelector("[data-next]");
 const questionEl = document.querySelector("[data-question]");
 const scoreEl = document.querySelector("[data-score]");
 const answerEls = document.querySelectorAll("[data-answer]");
@@ -80,6 +81,22 @@ function hideResetButton() {
   resetButton.style.display = "none";
 }
 
+function showNextButton() {
+  nextButton.style.display = "block";
+}
+
+function hideNextButton() {
+  nextButton.style.display = "none";
+}
+
+function showSubmitButton() {
+  submitButton.style.display = "block";
+}
+
+function hideSubmitButton() {
+  submitButton.style.display = "none";
+}
+
 function updateScore() {
   scoreEl.innerText = GameState.current.score;
 }
@@ -95,6 +112,9 @@ function startGame() {
 
 function generateQuestion() {
   clearAnswerResults();
+  uncheckAllAnswers();
+  hideNextButton();
+  showSubmitButton();
   // do a few things with game state
 
   // get random status code data
@@ -180,6 +200,9 @@ function submitAnswer() {
 
   showAnswerResults();
 
+  hideSubmitButton();
+  showNextButton();
+
   // TODO show next question button
 }
 
@@ -189,6 +212,10 @@ startButton.addEventListener("click", function () {
 
 submitButton.addEventListener("click", function () {
   submitAnswer();
+});
+
+nextButton.addEventListener("click", function () {
+  generateQuestion();
 });
 
 resetButton.addEventListener("click", function () {
