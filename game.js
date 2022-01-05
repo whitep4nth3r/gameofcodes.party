@@ -11,12 +11,38 @@ const questionEl = document.querySelector("[data-question]");
 const scoreEl = document.querySelector("[data-score]");
 const answerEls = document.querySelectorAll("[data-answer]");
 const result = document.querySelector("[data-result]");
+const gameResults = document.querySelector("[data-game-results]");
+const resultsTable = document.querySelector("[data-results-table]");
+const score = document.querySelector("[data-score]");
 const currentQuestionIndicatorEl = document.querySelector("[data-current]");
 const questionCountEl = document.querySelector("[data-question-count]");
 
+// Example GameState
+
+/**
+  correctAnswerRandString: "12237984",
+  correctAnswerString: "Created",
+  currentStatusCode: "200",
+  currentWrongAnswers: [...],
+  progress = 
+    {
+      [key: statuscode]: {
+        correctAnswerString: "",
+        userAnswerString: ""
+      }
+    },
+  score: 0,
+  seenQuestions: [201, 400],
+  question: 3,
+  questionCount: 10,
+*/
+
 const GameState = {
   correctAnswerRandString: "",
+  correctAnswerString: "",
+  currentStatusCode: "",
   currentWrongAnswers: [],
+  progress: {},
   score: 0,
   seenQuestions: [],
   question: 1,
@@ -57,6 +83,7 @@ function resetGame() {
   hideResetButton();
   uncheckAllAnswers();
   resetGameState();
+  clearResultsTable();
   updateScore();
   initTotalQuestions();
 }
@@ -125,7 +152,14 @@ function resetGameState() {
   GameState.seenQuestions = [];
   GameState.question = 0;
   GameState.currentWrongAnswers = [];
+  GameState.currentStatusCode = 0;
+  GameState.correctAnswerString = "";
+  GameState.correctAnswerRandString = "";
   GameState.score = 0;
+}
+
+function clearResultsTable() {
+  resultsTable.querySelector("tbody").innerHTML = "";
 }
 
 function startGame() {
@@ -137,8 +171,15 @@ function startGame() {
   showQuiz();
 }
 
-function updateProgress() {
+function updateProgressIndicator() {
   currentQuestionIndicatorEl.textContent = GameState.question;
+}
+
+function updateGameStateProgress(userAnswerString) {
+  GameState.progress[GameState.currentStatusCode] = {
+    correctAnswerString: GameState.correctAnswerString,
+    userAnswerString: userAnswerString,
+  };
 }
 
 function initTotalQuestions() {
@@ -163,12 +204,12 @@ function getNewQuestionData() {
 
 function generateQuestion() {
   incrementCurrentQuestion();
-  updateProgress();
+  updateProgressIndicator();
   clearAnswerResults();
   uncheckAllAnswers();
   hideNextButton();
   showSubmitButton();
-  updateProgress();
+  updateProgressIndicator();
 
   // get random question data that we haven't seen before
   const questionData = getNewQuestionData();
@@ -180,6 +221,8 @@ function generateQuestion() {
   const correctAnswer = Object.values(questionData)[0];
 
   // set question up
+  GameState.correctAnswerString = correctAnswer;
+  GameState.currentStatusCode = code;
   questionEl.innerText = code;
 
   // get random index to populate answer
@@ -191,9 +234,11 @@ function generateQuestion() {
   // generate correct answer random string to store in game state
   const correctAnswerIdentifier = generateRandomString();
   GameState.correctAnswerRandString = correctAnswerIdentifier;
+
   // store string in DOM on correct answer
   answerEls[randomElIndex].dataset.answer = correctAnswerIdentifier;
   answerEls[randomElIndex].querySelector("input").dataset.identifier = correctAnswerIdentifier;
+  answerEls[randomElIndex].querySelector("input").dataset.answerString = correctAnswer;
 
   // populate rest of answer elements with random descriptions
   // make sure the random description is not correctAnswer
@@ -209,6 +254,7 @@ function generateQuestion() {
       // store string in DOM on answer
       answerEls[i].dataset.answer = wrongAnswerIdentifier;
       answerEls[i].querySelector("input").dataset.identifier = wrongAnswerIdentifier;
+      answerEls[i].querySelector("input").dataset.answerString = wrongAnswer;
     }
   }
 }
@@ -237,14 +283,50 @@ function showAnswerResults() {
   }
 }
 
+function drawGameResults() {
+  const tableBody = resultsTable.querySelector("tbody");
+
+  for (let i = 0; i < GameState.seenQuestions.length; i++) {
+    let row = document.createElement("tr");
+    let questionIndex = document.createElement("td");
+    questionIndex.innerText = i + 1;
+    row.append(questionIndex);
+
+    let statusCode = document.createElement("td");
+    statusCode.innerText = GameState.seenQuestions[i];
+    row.append(statusCode);
+
+    let correctAnswer = document.createElement("td");
+    correctAnswer.innerText = GameState.progress[GameState.seenQuestions[i]].correctAnswerString;
+    row.append(correctAnswer);
+
+    let userAnswer = document.createElement("td");
+    userAnswer.innerText = GameState.progress[GameState.seenQuestions[i]].userAnswerString;
+    row.append(userAnswer);
+
+    let result = document.createElement("td");
+    result.innerText =
+      GameState.progress[GameState.seenQuestions[i]].correctAnswerString ===
+      GameState.progress[GameState.seenQuestions[i]].userAnswerString
+        ? "✓"
+        : "❌";
+    row.append(result);
+
+    tableBody.append(row);
+  }
+}
+
 function endGame() {
   hideEndButton();
   hideQuiz();
+  drawGameResults();
   showResult();
-  result.textContent = `You scored ${GameState.score} out of ${GameState.questionCount}!`;
+  score.textContent = `You scored ${GameState.score} out of ${GameState.questionCount}!`;
 }
 
 function submitAnswer() {
+  let answerIsCorrect = false;
+
   // get selected answer in DOM
   const selectedInputEl = document.querySelector("input:checked");
 
@@ -253,14 +335,16 @@ function submitAnswer() {
   }
 
   const selectedAnswerString = selectedInputEl.dataset.identifier;
+  const userAnswerString = selectedInputEl.dataset.answerString;
 
   if (selectedInputEl && selectedAnswerString === GameState.correctAnswerRandString) {
     // correct answer!
-
+    answerIsCorrect = true;
     GameState.score += 1;
     updateScore();
   }
 
+  updateGameStateProgress(userAnswerString);
   showAnswerResults();
   hideSubmitButton();
 

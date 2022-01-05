@@ -55,10 +55,26 @@ body {
 }
 
 .quiz__result {
+  display: none;
+}
+
+.quiz__result__score {
   font-size: 2rem;
   margin-bottom: 4rem;
   margin-top: 4rem;
-  display: none;
+}
+
+.quiz__result__table {
+  width: 100%;
+  margin-bottom: 4rem;
+}
+
+.quiz__result__table td {
+  padding: 0.5rem;
+}
+
+.quiz__result__table th {
+  text-align: left;
 }
 
 .button {

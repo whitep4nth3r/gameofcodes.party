@@ -25,7 +25,21 @@
       <section data-init>
         <button type="button" class="button" data-start>Begin quiz</button>
       </section>
-      <p class="quiz__result" data-result></p>
+      <section class="quiz__result" data-result>
+        <p class="quiz__result__score" data-score></p>
+        <div data-game-results>
+          <table class="quiz__result__table" data-results-table>
+            <thead>
+              <th></th>
+              <th>Status code</th>
+              <th>Correct answer</th>
+              <th>Your answer</th>
+              <th></th>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
       <section class="quiz" data-quiz>
         <div class="quiz__info">
           <p class="quiz__info__progress">
