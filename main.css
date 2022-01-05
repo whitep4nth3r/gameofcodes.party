@@ -97,7 +97,7 @@ body {
 .answers__option {
   margin-bottom: 1.5rem;
   background-color: #fff;
-  padding: 1rem;
+  padding: 0.5rem;
   font-weight: bold;
   border-radius: 0.5rem;
   color: #000;
@@ -119,7 +119,9 @@ input {
 .answers__option label {
   cursor: pointer;
   display: inline-flex;
+  width: 100%;
   align-items: center;
+  padding: 0.5rem;
 }
 
 .answers__option--correct {
