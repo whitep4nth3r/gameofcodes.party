@@ -24,7 +24,7 @@ body {
 }
 
 .main {
-  margin: 2rem auto;
+  margin: 1rem auto;
   max-width: 600px;
 }
 
@@ -88,6 +88,10 @@ body {
   display: none;
 }
 
+.button__end {
+  display: none;
+}
+
 .answers {
   border-width: 0;
   padding: 0;
@@ -97,7 +101,6 @@ body {
 .answers__option {
   margin-bottom: 1.5rem;
   background-color: #fff;
-  padding: 0.5rem;
   font-weight: bold;
   border-radius: 0.5rem;
   color: #000;
@@ -108,7 +111,7 @@ body {
 }
 
 input {
-  margin-right: 0.5rem;
+  margin: 0 0 0 1rem;
 }
 
 .answers__option input:focus {
@@ -121,7 +124,8 @@ input {
   display: inline-flex;
   width: 100%;
   align-items: center;
-  padding: 0.5rem;
+  padding: 1rem;
+  line-height: 1;
 }
 
 .answers__option--correct {

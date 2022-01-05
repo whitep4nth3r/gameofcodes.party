@@ -6,6 +6,7 @@ const startButton = document.querySelector("[data-start]");
 const resetButton = document.querySelector("[data-reset]");
 const submitButton = document.querySelector("[data-submit]");
 const nextButton = document.querySelector("[data-next]");
+const endButton = document.querySelector("[data-end]");
 const questionEl = document.querySelector("[data-question]");
 const scoreEl = document.querySelector("[data-score]");
 const answerEls = document.querySelectorAll("[data-answer]");
@@ -106,6 +107,14 @@ function showSubmitButton() {
 
 function hideSubmitButton() {
   submitButton.style.display = "none";
+}
+
+function showEndButton() {
+  endButton.style.display = "block";
+}
+
+function hideEndButton() {
+  endButton.style.display = "block";
 }
 
 function updateScore() {
@@ -229,6 +238,8 @@ function showAnswerResults() {
 }
 
 function endGame() {
+  hideEndButton();
+  hideQuiz();
   showResult();
   result.textContent = `You scored ${GameState.score} out of ${GameState.questionCount}!`;
 }
@@ -256,22 +267,16 @@ function submitAnswer() {
   if (GameState.question < GameState.questionCount) {
     showNextButton();
   } else {
-    endGame();
+    showEndButton();
   }
 }
 
-startButton.addEventListener("click", function () {
-  startGame();
-});
+startButton.addEventListener("click", startGame);
 
-submitButton.addEventListener("click", function () {
-  submitAnswer();
-});
+submitButton.addEventListener("click", submitAnswer);
 
-nextButton.addEventListener("click", function () {
-  generateQuestion();
-});
+nextButton.addEventListener("click", generateQuestion);
 
-resetButton.addEventListener("click", function () {
-  resetGame();
-});
+resetButton.addEventListener("click", resetGame);
+
+endButton.addEventListener("click", endGame);
