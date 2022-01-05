@@ -74,7 +74,7 @@ body {
 }
 
 .button:focus {
-  outline: none;
+  outline: transparent;
   box-shadow: #0000ff 0 0 0 0.25rem;
   transition: box-shadow 0.2s ease 0s;
   color: #0000ff;
@@ -97,10 +97,14 @@ body {
 .answers__option {
   margin-bottom: 1.5rem;
   background-color: #fff;
-  padding: 0.5rem;
+  padding: 1rem;
   font-weight: bold;
   border-radius: 0.5rem;
   color: #000;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 input {
@@ -114,22 +118,30 @@ input {
 
 .answers__option label {
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
 }
 
-.answer__correct {
+.answers__option--correct {
   color: green;
-  margin-bottom: 1.5rem;
-  background-color: #fff;
-  padding: 0.5rem;
-  font-weight: bold;
-  border-radius: 0.5rem;
 }
 
-.answer__incorrect {
+.answers__option--correct label::after {
+  content: "✓";
+  margin-left: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.answers__option--incorrect {
   color: red;
-  margin-bottom: 1.5rem;
-  background-color: #fff;
-  font-weight: bold;
-  border-radius: 0.5rem;
-  padding: 0.5rem;
+}
+
+.answers__option--incorrect label::after {
+  content: "❌";
+  margin-left: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }

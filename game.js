@@ -160,7 +160,6 @@ function generateQuestion() {
   hideNextButton();
   showSubmitButton();
   updateProgress();
-  // do a few things with game state
 
   // get random question data that we haven't seen before
   const questionData = getNewQuestionData();
@@ -220,11 +219,11 @@ function showAnswerResults() {
     `[data-answer="${GameState.correctAnswerRandString}"]`
   );
 
-  correctAnswerEl.className = "answer__correct";
+  correctAnswerEl.classList = "answers__option answers__option--correct";
 
   for (let el of answerEls) {
     if (el.dataset.answer !== GameState.correctAnswerRandString) {
-      el.className = "answer__incorrect";
+      el.classList = "answers__option answers__option--incorrect";
     }
   }
 }
