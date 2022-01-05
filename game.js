@@ -8,12 +8,12 @@ const submitButton = document.querySelector("[data-submit]");
 const nextButton = document.querySelector("[data-next]");
 const endButton = document.querySelector("[data-end]");
 const questionEl = document.querySelector("[data-question]");
-const scoreEl = document.querySelector("[data-score]");
+const progressScoreEl = document.querySelector("[data-progress-score]");
+const resultScoreEl = document.querySelector("[data-result-score]");
 const answerEls = document.querySelectorAll("[data-answer]");
 const result = document.querySelector("[data-result]");
 const gameResults = document.querySelector("[data-game-results]");
 const resultsTable = document.querySelector("[data-results-table]");
-const score = document.querySelector("[data-score]");
 const currentQuestionIndicatorEl = document.querySelector("[data-current]");
 const questionCountEl = document.querySelector("[data-question-count]");
 
@@ -145,7 +145,7 @@ function hideEndButton() {
 }
 
 function updateScore() {
-  scoreEl.innerText = GameState.score;
+  progressScoreEl.innerText = GameState.score;
 }
 
 function resetGameState() {
@@ -321,7 +321,7 @@ function endGame() {
   hideQuiz();
   drawGameResults();
   showResult();
-  score.textContent = `You scored ${GameState.score} out of ${GameState.questionCount}!`;
+  resultScoreEl.textContent = `You scored ${GameState.score} out of ${GameState.questionCount}!`;
 }
 
 function submitAnswer() {
