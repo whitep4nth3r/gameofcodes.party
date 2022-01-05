@@ -1,0 +1,19 @@
+{
+  "name": "gameofcodes.party",
+  "version": "0.0.1",
+  "description": "Learn your HTTP status codes with this silly, yet educational quiz game.",
+  "main": "\"\"",
+  "scripts": {
+    "test": "echo \"LOL: who writes tests for a silly project like this :P\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/whitep4nth3r/gameofcodes.party.git"
+  },
+  "author": "whitep4nth3r",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/whitep4nth3r/gameofcodes.party/issues"
+  },
+  "homepage": "https://github.com/whitep4nth3r/gameofcodes.party#readme"
+}
