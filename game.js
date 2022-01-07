@@ -166,7 +166,7 @@ function clearResultsTable() {
 function startGame() {
   resetGame();
   hideStartButton();
-  showResetButton();
+  hideResetButton();
   resetGameState();
   generateQuestion();
   showQuiz();
@@ -310,7 +310,7 @@ function drawGameResults() {
       GameState.progress[GameState.seenQuestions[i]].correctAnswerString ===
       GameState.progress[GameState.seenQuestions[i]].userAnswerString
         ? "✓"
-        : "❌";
+        : "✘";
     row.append(result);
 
     tableBody.append(row);
@@ -322,6 +322,7 @@ function endGame() {
   hideQuiz();
   drawGameResults();
   showResult();
+  showResetButton();
   resultScoreEl.textContent = `You scored ${GameState.score} out of ${GameState.questionCount}!`;
 }
 

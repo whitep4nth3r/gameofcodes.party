@@ -1,11 +1,39 @@
+:root {
+  --black: #1e272e;
+  --white: #ffffff;
+
+  --periwinkle: #575fcf;
+  --green-teal: #05c46b;
+  --red-orange: #ff3f34;
+
+  --btn-color-bg: var(--periwinkle);
+  --btn-color-fg: var(--white);
+  --btn-color-border: var(--periwinkle);
+  --btn-color-focus: var(--green-teal);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: var(--black);
+    --color-fg: var(--white);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-bg: var(--white);
+    --color-fg: var(--black);
+  }
+}
+
 html {
   font-size: 100%;
 }
 
 body {
   padding: 1rem;
-  background-color: #000;
-  color: #fff;
+  background-color: var(--color-bg);
+  color: var(--color-fg);
   font-size: 1rem;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -17,8 +45,8 @@ body {
 
 .separator {
   border-style: solid;
-  border-color: #fff;
-  background-color: #fff;
+  border-color: var(--color-fg);
+  background-color: var(--color-fg);
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
@@ -29,6 +57,9 @@ body {
 }
 
 .main__header {
+  letter-spacing: 2px;
+  font-size: 2rem;
+  text-transform: uppercase;
 }
 
 .quiz {
@@ -79,21 +110,23 @@ body {
 
 .button {
   margin-bottom: 2rem;
-  background-color: #fff;
-  border: 0.25rem solid #fff;
-  color: #000;
+  background-color: var(--btn-color-bg);
+  border: 0.25rem solid var(--btn-color-border);
+  color: var(--btn-color-fg);
   font-weight: bold;
-  font-size: 1.2rem;
-  padding: 0.5rem 1rem;
+  font-size: 1.4rem;
+  padding: 1rem 2rem;
   cursor: pointer;
   border-radius: 0.5rem;
+  text-transform: uppercase;
+  width: 100%;
 }
 
 .button:focus {
   outline: transparent;
-  box-shadow: #0000ff 0 0 0 0.25rem;
+  box-shadow: var(--btn-color-focus) 0 0 0 0.5rem;
   transition: box-shadow 0.2s ease 0s;
-  color: #0000ff;
+  color: var(--btn-color-fg);
 }
 
 .button__reset {
@@ -116,14 +149,15 @@ body {
 
 .answers__option {
   margin-bottom: 1.5rem;
-  background-color: #fff;
+  background-color: var(--color-fg);
   font-weight: bold;
   border-radius: 0.5rem;
-  color: #000;
+  color: var(--color-bg);
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  border: 0.35rem solid var(--color-fg);
 }
 
 input {
@@ -145,11 +179,12 @@ input {
 }
 
 .answers__option--correct {
-  color: green;
+  border-color: var(--green-teal);
 }
 
 .answers__option--correct label::after {
   content: "✓";
+  color: var(--color-bg);
   margin-left: 0.5rem;
   display: inline-flex;
   align-items: center;
@@ -157,11 +192,12 @@ input {
 }
 
 .answers__option--incorrect {
-  color: red;
+  border-color: var(--red-orange);
 }
 
 .answers__option--incorrect label::after {
-  content: "❌";
+  content: "\002718";
+  color: var(--color-bg);
   margin-left: 0.5rem;
   display: inline-flex;
   align-items: center;
