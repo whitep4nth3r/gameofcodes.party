@@ -79,6 +79,7 @@ function uncheckAllAnswers() {
 function resetGame() {
   showStartButton();
   hideResult();
+  hideEndButton();
   hideQuiz();
   hideResetButton();
   uncheckAllAnswers();
@@ -141,7 +142,7 @@ function showEndButton() {
 }
 
 function hideEndButton() {
-  endButton.style.display = "block";
+  endButton.style.display = "none";
 }
 
 function updateScore() {
@@ -193,7 +194,7 @@ function getNewQuestionData() {
   const code = Object.keys(questionData);
 
   // if code has already been seen, go around again
-  if (GameState.seenQuestions.includes(code)) {
+  if (GameState.seenQuestions.includes(code[0])) {
     return getNewQuestionData();
   } else {
     // add code to GameState.seenQuestions
