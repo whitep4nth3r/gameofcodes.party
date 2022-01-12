@@ -15,13 +15,18 @@
       rel="icon"
       type="image/x-icon"
     />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <header></header>
     <main class="main">
       <h1 class="main__header">Game of Codes</h1>
-      <p>Learn your HTTP status codes. Or else!</p>
-      <hr class="separator" />
       <section data-init>
         <button type="button" class="button" data-start>Begin quiz</button>
       </section>
@@ -61,19 +66,19 @@
           <fieldset class="answers">
             <div data-answer class="answers__option">
               <input type="radio" name="answer" id="option1" />
-              <label for="option1"></label>
+              <label class="answers__option__label" for="option1"></label>
             </div>
             <div data-answer class="answers__option">
               <input type="radio" name="answer" id="option2" />
-              <label for="option2"></label>
+              <label class="answers__option__label" for="option2"></label>
             </div>
             <div data-answer class="answers__option">
               <input type="radio" name="answer" id="option3" />
-              <label for="option3"></label>
+              <label class="answers__option__label" for="option3"></label>
             </div>
             <div data-answer class="answers__option">
               <input type="radio" name="answer" id="option4" />
-              <label for="option4"></label>
+              <label class="answers__option__label" for="option4"></label>
             </div>
           </fieldset>
           <button type="button" class="button" data-submit>Submit answer</button>

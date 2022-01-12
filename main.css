@@ -1,21 +1,32 @@
 :root {
-  --black: #1e272e;
+  --black: #000000;
   --white: #ffffff;
 
-  --periwinkle: #575fcf;
-  --green-teal: #05c46b;
-  --red-orange: #ff3f34;
+  --purple: #a55eea;
+  --green: #26de81;
+  --red: #eb3b5a;
+  --blue: #4b7bec;
+  --pink: #fc5c65;
 
-  --btn-color-bg: var(--periwinkle);
+  --btn-color-bg: var(--purple);
   --btn-color-fg: var(--white);
-  --btn-color-border: var(--periwinkle);
-  --btn-color-focus: var(--green-teal);
+  --btn-color-border: var(--purple);
+  --btn-color-focus: var(--green);
+
+  --font-family-heading: "Press Start 2P", cursive;
+  --font-family-main: "Fira Code", monospace;
+
+  --form-control-color: var(--purple);
+  --form-control-focus-color: var(--green);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --color-bg: var(--black);
     --color-fg: var(--white);
+
+    --header-color: var(--green);
+    --header-shadow-color: var(--blue);
   }
 }
 
@@ -23,6 +34,9 @@
   :root {
     --color-bg: var(--white);
     --color-fg: var(--black);
+
+    --header-color: var(--black);
+    --header-shadow-color: var(--green);
   }
 }
 
@@ -35,11 +49,12 @@ body {
   background-color: var(--color-bg);
   color: var(--color-fg);
   font-size: 1rem;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: var(--font-family-main);
 }
 
-* {
+*,
+*:before,
+*:after {
   box-sizing: border-box;
 }
 
@@ -57,9 +72,14 @@ body {
 }
 
 .main__header {
-  letter-spacing: 2px;
-  font-size: 2rem;
+  font-size: 2.5rem;
   text-transform: uppercase;
+  font-family: var(--font-family-heading);
+  color: var(--header-color);
+  letter-spacing: 2px;
+  text-shadow: 3px 3px var(--header-shadow-color);
+  text-align: center;
+  margin-bottom: 4rem;
 }
 
 .quiz {
@@ -120,6 +140,7 @@ body {
   border-radius: 0.5rem;
   text-transform: uppercase;
   width: 100%;
+  font-family: var(--font-family-heading);
 }
 
 .button:focus {
@@ -164,22 +185,60 @@ input {
   margin: 0 0 0 1rem;
 }
 
-.answers__option input:focus {
-  box-shadow: yellow 0 0 0 0.25rem;
-  transition: box-shadow 0.2s ease 0s;
+.answers__option__label {
+  cursor: pointer;
+  line-height: 1.1;
+  font-size: 1.2rem;
+  padding: 1rem;
+  /* display: grid;
+  grid-template-columns: 1rem auto;
+  gap: 0.5rem; */
 }
 
-.answers__option label {
+input[type="radio"] {
   cursor: pointer;
-  display: inline-flex;
-  width: 100%;
-  align-items: center;
-  padding: 1rem;
-  line-height: 1;
+  /* Add if not using autoprefixer */
+  -webkit-appearance: none;
+  appearance: none;
+  /* For iOS < 15 to remove gradient background */
+  background-color: var(--color-fg);
+  /* Not removed via appearance */
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1.15rem;
+  height: 1.15rem;
+  border: 0.15rem solid var(--color-bg);
+  border-radius: 50%;
+
+  display: grid;
+  place-content: center;
+
+  margin-left: 1rem;
+}
+
+input[type="radio"]::before {
+  content: "";
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  transform: scale(0);
+  box-shadow: inset 1rem 1rem var(--form-control-color);
+}
+
+input[type="radio"]:checked::before {
+  transform: scale(1);
+}
+
+input[type="radio"]:focus {
+  outline: max(2px, 0.15rem) solid var(--form-control-focus-color);
+  outline-offset: max(2px, 0.15rem);
+  box-shadow: var(--form-control-focus-color) 0 0 0 0.25rem;
 }
 
 .answers__option--correct {
-  border-color: var(--green-teal);
+  border-color: var(--green);
+  font-style: italic;
 }
 
 .answers__option--correct label::after {
@@ -192,7 +251,7 @@ input {
 }
 
 .answers__option--incorrect {
-  border-color: var(--red-orange);
+  border-color: var(--red);
 }
 
 .answers__option--incorrect label::after {
