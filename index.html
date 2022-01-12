@@ -30,6 +30,29 @@
       <section data-init>
         <button type="button" class="button" data-start>Begin quiz</button>
       </section>
+      <section class="quiz__info" data-quiz-info>
+        <p class="quiz__info__score">
+          Score
+          <span data-progress-score></span>
+        </p>
+
+        <p class="quiz__info__progress">
+          Q
+          <span data-current></span>
+          of
+          <span data-question-count></span>
+        </p>
+
+        <div
+          role="progressbar"
+          aria-label="Progress bar"
+          aria-valuemin="0"
+          aria-valuemax="0"
+          aria-valuenow="0"
+          class="quiz__info__progressBar"
+          data-progress-bar
+        ></div>
+      </section>
       <section class="quiz__result" data-result>
         <p class="quiz__result__score" data-result-score></p>
         <div data-game-results>
@@ -45,19 +68,8 @@
           </table>
         </div>
       </section>
+
       <section class="quiz" data-quiz>
-        <div class="quiz__info">
-          <p class="quiz__info__progress">
-            Question
-            <span data-current></span>
-            of
-            <span data-question-count></span>
-          </p>
-          <p class="quiz__info__score">
-            Score
-            <span data-progress-score></span>
-          </p>
-        </div>
         <h2 class="quiz__question">
           Define status code:
           <span data-question></span>

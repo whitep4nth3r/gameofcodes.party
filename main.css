@@ -12,12 +12,17 @@
   --btn-color-fg: var(--white);
   --btn-color-border: var(--purple);
   --btn-color-focus: var(--green);
+  --btn-color-text-shadow: var(--black);
 
   --font-family-heading: "Press Start 2P", cursive;
   --font-family-main: "Fira Code", monospace;
 
   --form-control-color: var(--purple);
   --form-control-focus-color: var(--green);
+
+  --progress-bar-bg: var(--color-fg);
+  --progress-bar-fill: var(--green);
+  --progress-bar-height: 1rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -45,7 +50,8 @@ html {
 }
 
 body {
-  padding: 1rem;
+  padding: 0;
+  margin: 0;
   background-color: var(--color-bg);
   color: var(--color-fg);
   font-size: 1rem;
@@ -58,28 +64,25 @@ body {
   box-sizing: border-box;
 }
 
-.separator {
-  border-style: solid;
-  border-color: var(--color-fg);
-  background-color: var(--color-fg);
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-
 .main {
-  margin: 1rem auto;
+  padding: 1rem;
+  margin: auto;
   max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: center;
 }
 
 .main__header {
-  font-size: 2.5rem;
+  font-size: clamp(1.5rem, 2.5vw, 2.5rem);
   text-transform: uppercase;
   font-family: var(--font-family-heading);
   color: var(--header-color);
-  letter-spacing: 2px;
   text-shadow: 3px 3px var(--header-shadow-color);
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
 }
 
 .quiz {
@@ -87,17 +90,39 @@ body {
 }
 
 .quiz__info {
-  display: grid;
-  justify-content: space-between;
-  grid-template-columns: 1fr 1fr;
+  /* is set to display: flex when game starts */
+  display: none;
+  flex-direction: column;
 }
 
 .quiz__info__progress {
+  display: none;
+}
+
+.quiz__info__progressBar {
+  width: 100%;
+  height: var(--progress-bar-height);
+  border-radius: 1rem;
+  background-color: var(--progress-bar-bg);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  display: grid;
+}
+
+.quiz__info__progressBar span {
+  background-color: var(--progress-bar-bg);
+  display: inline-block;
+  height: var(--progress-bar-height);
+  width: 100%;
+  transition: width 0.3s linear;
 }
 
 .quiz__info__score {
-  font-weight: bold;
-  text-align: right;
+  font-family: var(--font-family-heading);
+  text-align: center;
+  font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+  margin: 1rem auto;
 }
 
 .quiz__question {
@@ -129,18 +154,20 @@ body {
 }
 
 .button {
-  margin-bottom: 2rem;
+  margin: 2rem auto;
   background-color: var(--btn-color-bg);
   border: 0.25rem solid var(--btn-color-border);
   color: var(--btn-color-fg);
   font-weight: bold;
-  font-size: 1.4rem;
+  font-size: clamp(1.2rem, 1.4vw, 1.4rem);
   padding: 1rem 2rem;
+  line-height: 1.2;
   cursor: pointer;
   border-radius: 0.5rem;
   text-transform: uppercase;
   width: 100%;
   font-family: var(--font-family-heading);
+  text-shadow: 3px 3px var(--btn-color-text-shadow);
 }
 
 .button:focus {
@@ -190,9 +217,7 @@ input {
   line-height: 1.1;
   font-size: 1.2rem;
   padding: 1rem;
-  /* display: grid;
-  grid-template-columns: 1rem auto;
-  gap: 0.5rem; */
+  width: 100%;
 }
 
 input[type="radio"] {
@@ -210,10 +235,8 @@ input[type="radio"] {
   height: 1.15rem;
   border: 0.15rem solid var(--color-bg);
   border-radius: 50%;
-
   display: grid;
   place-content: center;
-
   margin-left: 1rem;
 }
 

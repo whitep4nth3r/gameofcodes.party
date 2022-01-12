@@ -1,6 +1,9 @@
 import { StatusCodes } from "./statuscodes.js";
 import { getRandomInt, getRandomEntry } from "./utils.js";
 
+const correctColor = "#26de81";
+const incorrectColor = "#eb3b5a";
+
 const quizHolder = document.querySelector("[data-quiz]");
 const startButton = document.querySelector("[data-start]");
 const resetButton = document.querySelector("[data-reset]");
@@ -16,6 +19,8 @@ const gameResults = document.querySelector("[data-game-results]");
 const resultsTable = document.querySelector("[data-results-table]");
 const currentQuestionIndicatorEl = document.querySelector("[data-current]");
 const questionCountEl = document.querySelector("[data-question-count]");
+const progressBar = document.querySelector("[data-progress-bar]");
+const quizInfo = document.querySelector("[data-quiz-info]");
 
 // Example GameState
 
@@ -80,10 +85,12 @@ function resetGame() {
   showStartButton();
   hideResult();
   hideEndButton();
+  hideQuizInfo();
   hideQuiz();
   hideResetButton();
   uncheckAllAnswers();
   resetGameState();
+  resetProgressBar();
   clearResultsTable();
   updateScore();
   initTotalQuestions();
@@ -95,6 +102,14 @@ function hideResult() {
 
 function showResult() {
   result.style.display = "block";
+}
+
+function hideQuizInfo() {
+  quizInfo.style.display = "none";
+}
+
+function showQuizInfo() {
+  quizInfo.style.display = "flex";
 }
 
 function showQuiz() {
@@ -169,18 +184,47 @@ function startGame() {
   hideResetButton();
   resetGameState();
   generateQuestion();
+  setUpProgressBar();
+  showQuizInfo();
   showQuiz();
+}
+
+function resetProgressBar() {
+  progressBar.innerHTML = "";
 }
 
 function updateProgressIndicator() {
   currentQuestionIndicatorEl.textContent = GameState.question;
 }
 
+function setUpProgressBar() {
+  progressBar.style.gridTemplateColumns = `repeat(${GameState.questionCount}, 1fr)`;
+  progressBar.ariaValueMax = GameState.questionCount;
+}
+
+function updateProgressBar(answerIsCorrect) {
+  const progressFillColor = answerIsCorrect ? correctColor : incorrectColor;
+
+  // add a span to the progress bar
+  const newSpan = document.createElement("span");
+  // fill it
+  newSpan.style.backgroundColor = progressFillColor;
+  newSpan.title = `Question ${GameState.question} of ${GameState.questionCount} was ${
+    answerIsCorrect ? "correct" : "incorrect"
+  }`;
+
+  // append to progressBar
+  progressBar.appendChild(newSpan);
+}
+
 function updateGameStateProgress(userAnswerString) {
+  // update GameState
   GameState.progress[GameState.currentStatusCode] = {
     correctAnswerString: GameState.correctAnswerString,
     userAnswerString: userAnswerString,
   };
+
+  updateProgressBar(userAnswerString === GameState.correctAnswerString);
 }
 
 function initTotalQuestions() {
@@ -268,11 +312,12 @@ function clearAnswerResults() {
 
 function incrementCurrentQuestion() {
   GameState.question += 1;
+  progressBar.ariaValueNow = GameState.question - 1; // progress bar is zero based
 }
 
 function showAnswerResults() {
   const correctAnswerEl = document.querySelector(
-    `[data-answer="${GameState.correctAnswerRandString}"]`
+    `[data-answer="${GameState.correctAnswerRandString}"]`,
   );
 
   correctAnswerEl.classList = "answers__option answers__option--correct";
