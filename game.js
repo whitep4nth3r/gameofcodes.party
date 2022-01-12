@@ -242,7 +242,7 @@ function getNewQuestionData() {
     return getNewQuestionData();
   } else {
     // add code to GameState.seenQuestions
-    GameState.seenQuestions.push(code);
+    GameState.seenQuestions.push(code[0]);
     return questionData;
   }
 }
