@@ -62,6 +62,7 @@ body {
 *:before,
 *:after {
   box-sizing: border-box;
+  margin: 0;
 }
 
 .main {
@@ -126,8 +127,9 @@ body {
 }
 
 .quiz__question {
-  font-size: 2rem;
+  font-size: clamp(1.4rem, 1.8vw, 1.8rem);
   margin-bottom: 2rem;
+  margin-top: 2rem;
 }
 
 .quiz__result {
@@ -284,4 +286,29 @@ input[type="radio"]:focus {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+.footer {
+  padding: 2rem;
+  text-align: center;
+}
+
+.footer__text {
+  color: var(--color-fg);
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  display: block;
+}
+
+.footer__textLink {
+  display: inline;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+  text-decoration-thickness: 0.125rem;
+}
+
+.footer__textLink:focus {
+  outline: transparent;
+  box-shadow: var(--btn-color-focus) 0 0 0 0.5rem;
 }
