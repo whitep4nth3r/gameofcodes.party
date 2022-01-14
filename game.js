@@ -1,5 +1,5 @@
 import { StatusCodes } from "./statuscodes.js";
-import { getRandomInt, getRandomEntry } from "./utils.js";
+import { getRandomInt, getRandomEntry, goodGreetings, badGreetings } from "./utils.js";
 
 const correctColor = "#26de81";
 const incorrectColor = "#eb3b5a";
@@ -369,13 +369,22 @@ function drawGameResults() {
   }
 }
 
+function drawEndScore() {
+  const scorePercentage = Math.floor((GameState.score / GameState.questionCount) * 100);
+
+  const prefix =
+    scorePercentage > 60 ? getRandomEntry(goodGreetings) : getRandomEntry(badGreetings);
+
+  resultScoreEl.textContent = `${prefix} You scored ${GameState.score} out of ${GameState.questionCount}!`;
+}
+
 function endGame() {
   hideEndButton();
   hideQuiz();
   drawGameResults();
   showResult();
   showResetButton();
-  resultScoreEl.textContent = `You scored ${GameState.score} out of ${GameState.questionCount}!`;
+  drawEndScore();
 }
 
 function submitAnswer() {
