@@ -197,7 +197,7 @@ body {
 }
 
 .button {
-  margin: 2rem auto;
+  margin: 1rem auto;
   background-color: var(--btn-color-bg);
   border: 0.25rem solid var(--btn-color-border);
   color: var(--btn-color-fg);
@@ -235,7 +235,7 @@ body {
 .answers {
   border-width: 0;
   padding: 0;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .answers__option {
