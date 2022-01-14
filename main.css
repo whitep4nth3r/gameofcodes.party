@@ -142,17 +142,58 @@ body {
   margin-top: 4rem;
 }
 
-.quiz__result__table {
+.quiz__result__blocks {
   width: 100%;
   margin-bottom: 4rem;
 }
 
-.quiz__result__table td {
-  padding: 0.5rem;
+.resultBlock {
+  margin-bottom: 1.5rem;
+  background-color: var(--color-fg);
+  font-weight: bold;
+  border-radius: 0.5rem;
+  color: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border: 0.35rem solid var(--color-fg);
+  padding: 1rem;
 }
 
-.quiz__result__table th {
-  text-align: left;
+.resultBlock h3 {
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
+}
+
+.resultBlock__title {
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.resultBlock--correct {
+  border-color: var(--green);
+  font-style: italic;
+}
+
+.resultBlock--incorrect {
+  border-color: var(--red);
+}
+
+.resultBlock__answer {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.resultBlock__answer:last-of-type {
+  margin-bottom: 0;
+}
+
+.resultBlock__answer--correct {
+  font-size: 1.4rem;
+}
+
+.resultBlock__answer--incorrect {
 }
 
 .button {

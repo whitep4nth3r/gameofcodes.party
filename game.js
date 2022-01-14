@@ -16,7 +16,6 @@ const resultScoreEl = document.querySelector("[data-result-score]");
 const answerEls = document.querySelectorAll("[data-answer]");
 const result = document.querySelector("[data-result]");
 const gameResults = document.querySelector("[data-game-results]");
-const resultsTable = document.querySelector("[data-results-table]");
 const currentQuestionIndicatorEl = document.querySelector("[data-current]");
 const questionCountEl = document.querySelector("[data-question-count]");
 const progressBar = document.querySelector("[data-progress-bar]");
@@ -51,7 +50,7 @@ const GameState = {
   score: 0,
   seenQuestions: [],
   question: 1,
-  questionCount: 10,
+  questionCount: 3,
 };
 
 function generateRandomString() {
@@ -91,7 +90,7 @@ function resetGame() {
   uncheckAllAnswers();
   resetGameState();
   resetProgressBar();
-  clearResultsTable();
+  clearResultsBlock();
   updateScore();
   initTotalQuestions();
 }
@@ -174,8 +173,8 @@ function resetGameState() {
   GameState.score = 0;
 }
 
-function clearResultsTable() {
-  resultsTable.querySelector("tbody").innerHTML = "";
+function clearResultsBlock() {
+  gameResults.innerHTML = "";
 }
 
 function startGame() {
@@ -330,35 +329,43 @@ function showAnswerResults() {
 }
 
 function drawGameResults() {
-  const tableBody = resultsTable.querySelector("tbody");
-
   for (let i = 0; i < GameState.seenQuestions.length; i++) {
-    let row = document.createElement("tr");
-    let questionIndex = document.createElement("td");
-    questionIndex.innerText = i + 1;
-    row.append(questionIndex);
-
-    let statusCode = document.createElement("td");
-    statusCode.innerText = GameState.seenQuestions[i];
-    row.append(statusCode);
-
-    let correctAnswer = document.createElement("td");
-    correctAnswer.innerText = GameState.progress[GameState.seenQuestions[i]].correctAnswerString;
-    row.append(correctAnswer);
-
-    let userAnswer = document.createElement("td");
-    userAnswer.innerText = GameState.progress[GameState.seenQuestions[i]].userAnswerString;
-    row.append(userAnswer);
-
-    let result = document.createElement("td");
-    result.innerText =
+    let answerIsCorrect =
       GameState.progress[GameState.seenQuestions[i]].correctAnswerString ===
-      GameState.progress[GameState.seenQuestions[i]].userAnswerString
-        ? "✓"
-        : "✘";
-    row.append(result);
+      GameState.progress[GameState.seenQuestions[i]].userAnswerString;
 
-    tableBody.append(row);
+    const answerModifierClass = answerIsCorrect ? "resultBlock--correct" : "resultBlock--incorrect";
+
+    let block = document.createElement("div");
+    block.classList = `resultBlock ${answerModifierClass}`;
+
+    let statusCode = document.createElement("h3");
+    const statusCodePrefix = answerIsCorrect ? "✓" : "✘";
+    statusCode.innerText = `${statusCodePrefix} ${GameState.seenQuestions[i]}`;
+    block.append(statusCode);
+
+    if (!answerIsCorrect) {
+      let titleUserAnswer = document.createElement("p");
+      titleUserAnswer.classList = "resultBlock__title";
+      titleUserAnswer.innerText = "You answered:";
+      block.append(titleUserAnswer);
+      let userAnswer = document.createElement("p");
+      userAnswer.classList = "resultBlock__answer resultBlock__answer--incorrect";
+      userAnswer.innerText = GameState.progress[GameState.seenQuestions[i]].userAnswerString;
+      block.append(userAnswer);
+
+      let titleCorrectAnswer = document.createElement("p");
+      titleCorrectAnswer.classList = "resultBlock__title";
+      titleCorrectAnswer.innerText = "Correct answer:";
+      block.append(titleCorrectAnswer);
+    }
+
+    let correctAnswer = document.createElement("p");
+    correctAnswer.classList = "resultBlock__answer resultBlock__answer--correct";
+    correctAnswer.innerText = GameState.progress[GameState.seenQuestions[i]].correctAnswerString;
+    block.append(correctAnswer);
+
+    gameResults.append(block);
   }
 }
 
