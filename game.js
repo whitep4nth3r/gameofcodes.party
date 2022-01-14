@@ -50,7 +50,7 @@ const GameState = {
   score: 0,
   seenQuestions: [],
   question: 1,
-  questionCount: 3,
+  questionCount: 10,
 };
 
 function generateRandomString() {
