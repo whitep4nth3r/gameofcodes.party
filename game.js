@@ -4,6 +4,8 @@ import { getRandomInt, getRandomEntry, goodGreetings, badGreetings } from "./uti
 const correctColor = "#26de81";
 const incorrectColor = "#eb3b5a";
 
+const showLeaderboardButton = document.querySelector("[data-show-leaderboard]");
+const addScoreButton = document.querySelector("[data-add-score]");
 const quizHolder = document.querySelector("[data-quiz]");
 const startButton = document.querySelector("[data-start]");
 const resetButton = document.querySelector("[data-reset]");
@@ -50,7 +52,7 @@ const GameState = {
   score: 0,
   seenQuestions: [],
   question: 1,
-  questionCount: 10,
+  questionCount: 1,
 };
 
 function generateRandomString() {
@@ -63,10 +65,7 @@ function getRandomWrongAnswer(correctAnswerString) {
   const randomData = getRandomEntry(StatusCodes);
   const answerString = Object.values(randomData)[0];
 
-  if (
-    answerString !== correctAnswerString &&
-    !GameState.currentWrongAnswers.includes(answerString)
-  ) {
+  if (answerString !== correctAnswerString && !GameState.currentWrongAnswers.includes(answerString)) {
     GameState.currentWrongAnswers.push(answerString);
     return answerString;
   } else {
@@ -315,9 +314,7 @@ function incrementCurrentQuestion() {
 }
 
 function showAnswerResults() {
-  const correctAnswerEl = document.querySelector(
-    `[data-answer="${GameState.correctAnswerRandString}"]`,
-  );
+  const correctAnswerEl = document.querySelector(`[data-answer="${GameState.correctAnswerRandString}"]`);
 
   correctAnswerEl.classList = "answers__option answers__option--correct";
 
@@ -372,8 +369,7 @@ function drawGameResults() {
 function drawEndScore() {
   const scorePercentage = Math.floor((GameState.score / GameState.questionCount) * 100);
 
-  const prefix =
-    scorePercentage > 60 ? getRandomEntry(goodGreetings) : getRandomEntry(badGreetings);
+  const prefix = scorePercentage > 60 ? getRandomEntry(goodGreetings) : getRandomEntry(badGreetings);
 
   resultScoreEl.textContent = `${prefix} You scored ${GameState.score} out of ${GameState.questionCount}!`;
 }
@@ -418,6 +414,16 @@ function submitAnswer() {
   }
 }
 
+async function addScoreToLeaderboard() {
+  const result = await fetch("http://localhost:8888/api/add-score?username=haliphax&score=10");
+}
+
+async function getLeaderboard() {
+  const result = await fetch("http://localhost:8888/api/get-leaderboard").then((res) => res.json());
+
+  console.log(result.documents);
+}
+
 startButton.addEventListener("click", startGame);
 
 submitButton.addEventListener("click", submitAnswer);
@@ -427,3 +433,7 @@ nextButton.addEventListener("click", generateQuestion);
 resetButton.addEventListener("click", resetGame);
 
 endButton.addEventListener("click", endGame);
+
+addScoreButton.addEventListener("click", addScoreToLeaderboard);
+
+showLeaderboardButton.addEventListener("click", getLeaderboard);

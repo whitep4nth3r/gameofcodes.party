@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/whitep4nth3r/gameofcodes.party/issues"
   },
-  "homepage": "https://github.com/whitep4nth3r/gameofcodes.party#readme"
+  "homepage": "https://github.com/whitep4nth3r/gameofcodes.party#readme",
+  "dependencies": {
+    "node-fetch": "^2.6.7"
+  }
 }
