@@ -1,3 +1,3 @@
 # gameofcodes.party
 
-This is currently a prototype for an HTTP status code game for developers.
+Test your HTTP status code knowledge with this 10-question quiz.
