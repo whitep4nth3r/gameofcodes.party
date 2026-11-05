@@ -5,107 +5,165 @@
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0d0a1f" />
 
-    <meta name="description" content="gameofcodes.party" />
+    <meta
+      name="description"
+      content="Game of Codes: an arcade quiz that tests how well you really know your HTTP status codes."
+    />
 
     <link rel="stylesheet" href="./main.css" />
 
     <link
-      href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAF0lEQVRIx2NgGAWjYBSMglEwCkbBSAcACBAAAeaR9cIAAAAASUVORK5CYII="
       rel="icon"
-      type="image/x-icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' fill='%230d0a1f'/%3E%3Cpath fill='%23ffd84f' d='M5 3h6v1h1v3h-1v1h-2v2H7V7h1V6h2V4H6v1H5zM7 11h2v2H7z'/%3E%3C/svg%3E"
     />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Press+Start+2P&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
-    <header></header>
-    <main class="main">
-      <h1 class="main__header">Game of Codes</h1>
-      <section data-init>
-        <button type="button" class="button" data-start>Begin quiz</button>
-      </section>
-      <section class="quiz__info" data-quiz-info>
-        <p class="quiz__info__score">
-          Score
-          <span data-progress-score></span>
-        </p>
+    <div class="cabinet">
+      <header class="marquee">
+        <div class="marquee__bulbs" aria-hidden="true"></div>
+        <p class="marquee__kicker">HTTP/1.1 Arcade</p>
+        <h1 class="marquee__title">
+          <span class="marquee__word">Game</span>
+          <span class="marquee__of">of</span>
+          <span class="marquee__word">Codes</span>
+        </h1>
+        <div class="marquee__bulbs marquee__bulbs--bottom" aria-hidden="true"></div>
+      </header>
 
-        <p class="quiz__info__progress">
-          Q
-          <span data-current></span>
-          of
-          <span data-question-count></span>
-        </p>
+      <main class="screen" data-screen>
+        <div class="screen__glass">
+          <!-- Attract mode / start screen -->
+          <section class="attract" data-init>
+            <p class="attract__player">Player 1</p>
+            <p class="attract__big" aria-hidden="true">
+              <span>2</span><span>0</span><span>0</span>
+            </p>
+            <p class="attract__pitch">
+              Ten status codes. Four answers each. How many do you actually know?
+            </p>
+            <button type="button" class="button button--start" data-start>
+              Press start
+            </button>
+            <p class="attract__hint">
+              <kbd>A</kbd>–<kbd>D</kbd> pick an answer &middot; <kbd>Enter</kbd> to fire
+            </p>
+            <div class="ticker" aria-hidden="true">
+              <div class="ticker__track">
+                <span>200 OK</span><span>301 Moved Permanently</span><span>404 Not Found</span
+                ><span>418 I'm a teapot</span><span>429 Too Many Requests</span
+                ><span>503 Service Unavailable</span><span>200 OK</span
+                ><span>301 Moved Permanently</span><span>404 Not Found</span
+                ><span>418 I'm a teapot</span><span>429 Too Many Requests</span
+                ><span>503 Service Unavailable</span>
+              </div>
+            </div>
+          </section>
 
-        <div
-          role="progressbar"
-          aria-label="Progress bar"
-          aria-valuemin="0"
-          aria-valuemax="0"
-          aria-valuenow="0"
-          class="quiz__info__progressBar"
-          data-progress-bar
-        ></div>
-      </section>
-      <section class="quiz__result" data-result>
-        <h2 class="quiz__result__score" data-result-score></h2>
-        <div class="quiz__result__blocks" data-game-results></div>
-      </section>
+          <!-- HUD -->
+          <section class="hud" data-quiz-info aria-label="Game status">
+            <p class="hud__item">
+              <span class="hud__label">1UP</span>
+              <span class="hud__value" data-progress-score>00</span>
+            </p>
+            <p class="hud__item hud__item--right">
+              <span class="hud__label">Stage</span>
+              <span class="hud__value"
+                ><span data-current>1</span><span class="hud__sep">/</span
+                ><span data-question-count>10</span></span
+              >
+            </p>
+            <div
+              role="progressbar"
+              aria-label="Quiz progress"
+              aria-valuemin="0"
+              aria-valuemax="10"
+              aria-valuenow="0"
+              class="hud__bar"
+              data-progress-bar
+            ></div>
+          </section>
 
-      <section class="quiz" data-quiz>
-        <h2 class="quiz__question">
-          Q: Define status code
-          <span data-question></span>
-        </h2>
-        <form>
-          <fieldset class="answers">
-            <div data-answer class="answers__option">
-              <input type="radio" name="answer" id="option1" />
-              <label class="answers__option__label" for="option1"></label>
-            </div>
-            <div data-answer class="answers__option">
-              <input type="radio" name="answer" id="option2" />
-              <label class="answers__option__label" for="option2"></label>
-            </div>
-            <div data-answer class="answers__option">
-              <input type="radio" name="answer" id="option3" />
-              <label class="answers__option__label" for="option3"></label>
-            </div>
-            <div data-answer class="answers__option">
-              <input type="radio" name="answer" id="option4" />
-              <label class="answers__option__label" for="option4"></label>
-            </div>
-          </fieldset>
-          <button type="button" class="button" data-submit>Submit answer</button>
-          <button type="button" class="button button__next" data-next>Next</button>
-          <button type="button" class="button button__end" data-end>Show results</button>
-        </form>
-      </section>
+          <!-- Question -->
+          <section class="quiz" data-quiz>
+            <h2 class="quiz__question">
+              <span class="quiz__prompt">Define status code</span>
+              <span class="quiz__code" data-question></span>
+              <span class="quiz__family" data-family></span>
+            </h2>
+            <form class="quiz__form" data-form>
+              <fieldset class="answers" data-answers>
+                <legend class="visually-hidden">Choose an answer</legend>
+                <div data-answer class="answers__option">
+                  <input type="radio" name="answer" id="option1" />
+                  <label class="answers__option__label" for="option1"></label>
+                </div>
+                <div data-answer class="answers__option">
+                  <input type="radio" name="answer" id="option2" />
+                  <label class="answers__option__label" for="option2"></label>
+                </div>
+                <div data-answer class="answers__option">
+                  <input type="radio" name="answer" id="option3" />
+                  <label class="answers__option__label" for="option3"></label>
+                </div>
+                <div data-answer class="answers__option">
+                  <input type="radio" name="answer" id="option4" />
+                  <label class="answers__option__label" for="option4"></label>
+                </div>
+              </fieldset>
 
-      <button class="button button__reset" type="button" data-reset>Start over</button>
-    </main>
-    <footer class="footer">
-      <!-- prettier-ignore -->
-      <p class="footer__text">
-        &copy;
-        <a href="https://twitter.com/whitep4nth3r" class="footer__textLink" target="_blank">
-          whitep4nth3r</a> FOREVER AND EVER
-      </p>
-      <!-- prettier-ignore -->
-      <a
-        href="https://github.com/whitep4nth3r/gameofcodes.party"
-        class="footer__textLink"
-        target="_blank"
-      >
-        Contribute via GitHub
-      </a>
-    </footer>
+              <p class="quiz__feedback" data-feedback role="status" aria-live="polite"></p>
+
+              <button type="button" class="button" data-submit>Fire!</button>
+              <button type="button" class="button button--next" data-next>Next stage</button>
+              <button type="button" class="button button--end" data-end>Show results</button>
+            </form>
+          </section>
+
+          <!-- Results -->
+          <section class="result" data-result>
+            <h2 class="result__over">Game over</h2>
+            <div class="result__score" data-result-score></div>
+            <h3 class="result__heading">Stage report</h3>
+            <ol class="result__list" data-game-results></ol>
+          </section>
+
+          <button class="button button--reset" type="button" data-reset>Play again</button>
+        </div>
+      </main>
+
+      <footer class="coindoor">
+        <div class="coindoor__slot">
+          <span class="coindoor__coin" aria-hidden="true">25¢</span>
+          <!-- prettier-ignore -->
+          <p class="coindoor__text">
+            &copy;
+            <a href="https://twitter.com/whitep4nth3r" class="coindoor__link" target="_blank" rel="noopener">whitep4nth3r</a>
+            forever and ever
+          </p>
+        </div>
+        <div class="coindoor__slot">
+          <span class="coindoor__coin" aria-hidden="true">PR</span>
+          <a
+            href="https://github.com/whitep4nth3r/gameofcodes.party"
+            class="coindoor__link"
+            target="_blank"
+            rel="noopener"
+          >
+            Contribute via GitHub
+          </a>
+        </div>
+      </footer>
+    </div>
     <script type="module" src="./game.js"></script>
   </body>
 </html>
